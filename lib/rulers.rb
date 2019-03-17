@@ -1,10 +1,14 @@
 require "rulers/version"
 
+require "rulers/array"
+
 module Rulers
   class Error < StandardError; end
 
   class Application
     def call(env)
+      `echo debug > debug.log`
+
       [
         200,
         {'Content-Type' => 'text/html'},
