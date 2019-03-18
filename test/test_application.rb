@@ -11,13 +11,15 @@ class RulersAppTest < Test::Unit::TestCase
     TestApp.new
   end
 
-  def test_request
+  def test_response_is_200
     get "/"
 
     assert last_response.ok?
+  end
 
-    body = last_response.body
+  def test_body_contains_expected_text
+    get "/"
 
-    assert body["Hello"] # the body contains "Hello"
+    assert_true last_response.body.include? "Hello" # the body contains "Hello"
   end
 end
