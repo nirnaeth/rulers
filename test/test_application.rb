@@ -1,6 +1,12 @@
 require_relative "test_helper"
 
 # Setup
+class TestController < Rulers::Controller
+  def action_test
+    "Hello"
+  end
+end
+
 class TestApp < Rulers::Application; end
 
 # Tests
@@ -12,13 +18,13 @@ class RulersAppTest < Test::Unit::TestCase
   end
 
   def test_response_is_200
-    get "/"
+    get "/test/action_test"
 
     assert last_response.ok?
   end
 
   def test_body_contains_expected_text
-    get "/"
+    get "/test/action_test"
 
     assert_true last_response.body.include? "Hello" # the body contains "Hello"
   end
