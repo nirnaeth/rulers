@@ -7,6 +7,7 @@ module Rulers
   class Application
     def call(env)
       return error(404) if env['PATH_INFO'] == '/favicon.ico'
+      return success(200, File.read('public/index.html')) if env['PATH_INFO'] == '/'
 
       klass, action = parse_url(env)
 
@@ -21,7 +22,7 @@ module Rulers
 
     private
 
-    def success(code, body = nil)
+    def success(code, body = "")
       [
         code,
         {'Content-Type' => 'text/html'},
@@ -29,7 +30,7 @@ module Rulers
       ]
     end
 
-    def error(code, message = nil)
+    def error(code, message = "")
       [
         code,
         {'Content-Type' => 'text/html'},
