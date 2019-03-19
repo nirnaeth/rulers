@@ -10,7 +10,8 @@ module Rulers
 
       controller = klass.new(env)
 
-      response = controller.send(env)
+      response = controller.send(action)
+
       [
         200,
         {'Content-Type' => 'text/html'},
