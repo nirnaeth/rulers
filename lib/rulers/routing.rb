@@ -1,14 +1,15 @@
 module Rulers
   class Application
+
     def parse_url(env)
       _, controller, action, after = env["PATH_INFO"].split('/', 4) # split no more than 4 times
 
-      [controller_class(controller), action]
+      [class_for(controller), action]
     end
 
     private
 
-    def controller_class(controller)
+    def class_for(controller)
       controller = controller.capitalize # ex: https://www.mysite.com/people/create" -> People"
       controller += "Controller" # "PeopleController"
 
