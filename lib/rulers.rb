@@ -6,16 +6,32 @@ module Rulers
 
   class Application
     def call(env)
+      return error(404) if env['PATH_INFO'] == '/favicon.ico'
+
       klass, action = parse_url(env)
 
       controller = klass.new(env)
 
-      response = controller.send(action)
+      body = controller.send(action)
 
+      success(200, body)
+    end
+
+    private
+
+    def success(code, body = nil)
       [
-        200,
+        code,
         {'Content-Type' => 'text/html'},
-        [response]
+        [body]
+      ]
+    end
+
+    def error(code, message = nil)
+      [
+        code,
+        {'Content-Type' => 'text/html'},
+        message ? [message] : []
       ]
     end
   end
