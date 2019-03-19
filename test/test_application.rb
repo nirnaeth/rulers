@@ -28,4 +28,10 @@ class RulersAppTest < Test::Unit::TestCase
 
     assert_true last_response.body.include? "Hello" # the body contains "Hello"
   end
+
+  def test_custom_page_for_server_error
+    get "/test/no_idea"
+
+    assert last_response.body.include? "Error!"
+  end
 end

@@ -15,6 +15,8 @@ module Rulers
       body = controller.send(action)
 
       success(200, body)
+    rescue StandardError => error
+      error(500, error.message)
     end
 
     private
@@ -31,7 +33,7 @@ module Rulers
       [
         code,
         {'Content-Type' => 'text/html'},
-        message ? [message] : []
+        ["Error! #{message}"]
       ]
     end
   end
